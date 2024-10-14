@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {padding: 0;margin: 0; box-sizing: border-box;}
+      .item {
+        background-color: red;
+        transition: 2s linear ;
+        display: block;
+        position: absolute;
+        width: 50vh;
+        left: 100%;
+        top: 50%;
+        transform: translate(0%,50%);
+      }
+      
+      .itemui {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+
+      }
+
+      .slider {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+     
+      .comand {
+        display: flex;
+        gap: 10px;
+        position: fixed;
+        bottom: 20px;
+        background-color: white;
+        padding: 10px;
+        z-index: 99;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root">
+      <div class="slider">
+        <img class="itemui" src="https://picsum.photos/600/300?lg=1" alt="" class="item">
+        <img src="https://picsum.photos/600/300?lg=2" alt="" class="item">
+        <img src="https://picsum.photos/600/300?lg=3" alt="" class="item">
+        
+      
+      </div>
+      <div class="comand">
+        <div class="prev">prev</div>
+        <div class="next">next</div>
+      </div>
+    </div>
+    <script>
+      const slider = document.querySelector(".slider");
+      document.addEventListener("click", (e) => {
+        const items = document.querySelectorAll(".item");
+        if(e.target.matches(".next")){
+          items[1].classList.add('itemui')
+          setTimeout(()=>{
+            slider.append(items[0]);
+            
+          },2000)
+        }
+
+        e.target.matches(".prev") && slider.prepend(items[items.length -1]);
+      });
+    </script>
+  </body>
+</html>

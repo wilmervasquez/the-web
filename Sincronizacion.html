@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    p{
+      padding: 10px;
+      margin: 20px;
+      border: 1px solid rgb(168, 223, 255);
+      box-shadow: -3px -3px 6px rgb(255, 255, 255) inset,-3px -3px 6px rgb(206, 206, 206) ;
+      border-radius: 10px;
+      background-color: rgb(94, 191, 255);
+          font-size: 12px;
+    font-family: sans-serif;
+    --token-79f54f4b-5c08-4adb-84cd-68f4d833bf59: rgb(3, 3, 23);
+    --token-7434257b-0490-4e05-8646-71d8417a414b: rgb(16, 16, 18);
+    --token-2840d062-261b-4eca-acdb-d7c218ee2723: rgb(102, 101, 114);
+    --token-19bb51d8-8ecb-4edb-a876-89a2d9028079: rgb(255, 68, 51);
+    --token-274fb780-9951-4059-956e-43216c6f8956: rgb(147, 159, 255);
+    --token-b120fb4b-0c34-444a-83f7-f5da4652de5f: rgb(187, 216, 239);
+    --token-0d77fd6c-b8c1-4144-91b6-7a1090aa56ca: rgba(70, 77, 162, .53);
+    --token-1ab448d1-0c1c-4522-bed8-d4e8acd8a553: rgb(255, 255, 255);
+    --token-caa3b7fe-c672-4b81-bf2c-593b45769299: rgb(208, 214, 224);
+    --token-069e3ad2-649b-435b-a6d1-d9b931d5682f: rgb(255, 66, 247);
+    --token-ac8e185c-3e0b-4c26-9b99-181a7fa7152a: rgba(70, 77, 162, 0);
+    --token-3d5c441c-38ec-4d7f-b674-2d144b8a5b5c: rgb(132, 252, 187);
+    --token-50f6cd25-219c-4f14-86d4-c93fe811e7a1: rgb(246, 84, 217);
+    --token-33c1b7c4-0a0c-4686-94e7-5ebf9197169d: rgb(190, 216, 240);
+    --token-5185bfef-7edf-4019-9521-dc65765d595b: #1C1925;
+    --token-78b3a21d-2189-48af-ab78-4bc421895f45: rgb(35, 33, 44);
+    --token-9dc8975e-a997-424a-ba30-457ab4ee2930: rgba(208, 214, 224, .02);
+    --token-58f91bf3-75a5-43be-b149-1294ffcd721b: rgba(255, 255, 255, .8);
+    --token-07a927c3-a931-4fdb-9312-1a3838ee9582: #D1FF3C;
+    --token-d78b7e67-3a9a-4a1e-b837-f2be1ea09c47: #7BF0FE;
+    --token-d87a39a1-1b01-4d2d-bf9d-26ec569a6e13: rgba(187, 216, 239, 0);
+    --framer-aspect-ratio-supported: auto;
+    --border-bottom-width: 0px;
+    --border-color: rgba(0, 0, 0, 0);
+    --border-left-width: 0px;
+    --border-right-width: 0px;
+    --border-style: solid;
+    --border-top-width: 0px;
+    box-sizing: border-box;
+    -webkit-font-smoothing: inherit;
+    flex: none;
+    height: 88px;
+    overflow: hidden;
+    position: relative;
+    width: 92px;
+    will-change: var(--framer-will-change-override, transform);
+    backdrop-filter: blur(26.5856px);
+    background-color: rgba(255, 255, 255, 0.03);
+    opacity: 0.4;
+    border-radius: 18.55px;
+    box-shadow: rgba(255, 255, 255, 0.15) 0px 2.47308px 2.47308px 0px inset, rgba(255, 255, 255, 0.05) 0px 0px 42.0424px 0px inset;
+    }
+  </style>
+</head>
+
+<body>
+  <p>12</p>
+  <script>
+    let count = document.querySelector('p')
+
+    window.addEventListener('storage', (event) => {
+      if (event.key == 'count') {
+        let counter = event.newValue;
+        count.textContent = counter
+      }
+    })
+
+    count.addEventListener('click', function (e) {
+      let counter = parseInt(localStorage.getItem('count'));
+
+      count.textContent = counter
+      localStorage.setItem('count', ++counter)
+
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {padding: 0, margin: 0, box-sizing: border-box}
+    .color {
+      width: 40px;
+      height: 40px;
+      /* border-radius: 25%; */
+      display: grid;
+      place-items: center;
+      color: ;
+      font-weight: bold;
+      filter: blur(14px);
+      font-size: 12px;
+      position: fixed;
+
+      transition: .2s linear;
+      cursor: pointer;
+    }
+    .color:first-child{
+      border-radius: 10px 0 0 10px;
+    }
+    .color:last-child{
+      border-radius: 0 10px 10px 0;
+    }
+    .color:hover{
+      border-radius: 10px;
+      scale: 5;
+    }
+    .colors {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cap {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <div class="colors">
+
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

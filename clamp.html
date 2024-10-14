@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    p {
+      font-size: clamp(12px, 4vw, 32px);
+    }
+  </style>
+</head>
+<body>
+  <p>dddddddddddddddddddddddddd7</p>
+  <script>
+    const red = document.querySelector("p");
+
+    const redAnimation = red.animate([
+      {fontSize: '120px'},
+      {opacity: 0.4}
+
+    ], {duration: 2000, iterations:Infinity, direction: 'alternate', easing: 'ease-in-out'})
+
+    redAnimation.play()
+  </script>
+</body>
+</html>

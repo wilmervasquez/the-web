@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+  </style>
+</head>
+<body>
+  <div class="">
+    <button>Flux</button>
+  </div>
+  <script>
+    let btn = document.querySelector('button');
+    btn.addEventListener('click', function (e) {
+      window.open('Pay.html','Number.POSITIVE_INFINITY')
+    });
+  </script>
+</body>
+</html>
+
+var count: State = 12;
+
+Group{
+  Button{
+    self.textContent = '+'
+    self.on('click', function (e) {
+      count += 1;
+    });
+  }
+  P{
+    $> textContent = count
+  }
+  Button{
+    self.textContent = '-'
+    self.on('click', function (e) {
+      count += 1;
+    });
+  }
+  for i in range(0,count){
+    
+  }
+}

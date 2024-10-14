@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img{
+      width: 400;
+      height: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="">
+    <input type="file" accept="image/*">
+  </form>
+  <canvas width="100" height="100"></canvas>
+  <img src="" class="" id="" time />
+  <script>
+    const img = document.querySelector('img');
+    const input = document.querySelector('input');
+    const canvas = document.querySelector('canvas');
+    const canvasCtx = canvas.getContext('2d');
+
+    input.addEventListener('change', function (e) {
+      let fileImg = e.target.files[0];
+      if (fileImg) {
+        let reader = new FileReader();
+        reader.readAsDataURL(fileImg);
+        reader.onload = function (e) {
+          const imgC = new Image();
+          imgC.src = e.target.result
+          imgC.onload = function () {
+            canvasCtx.clearRect(0, 0, 100, 100);
+
+            let [w,h] = [imgC.width, imgC.height];
+
+            canvasCtx.drawImage(imgC, 0, 0, w,h);
+
+
+            let base64String = canvas.toDataURL('image/png') ;
+            img.src = base64String
+            console.log(base64String.length);
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
