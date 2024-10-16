@@ -1,4 +1,4 @@
-class StateGlobal{
+class Provider{
   constructor(valueInitial){
     this.value = valueInitial
     this.updates = []
