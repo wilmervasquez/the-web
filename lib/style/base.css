@@ -13,3 +13,6 @@
 svg {
   display: block;
 }
+span {
+  font-family: inherit;
+}

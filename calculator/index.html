@@ -3,10 +3,14 @@
   <head>
     <script type="module" src="../lib/script/head.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <title>Calculator</title>
     <style>
+      * {
+        font-family: DM Sans;
+      }
       :root {
         color-scheme: light dark;
       }
@@ -14,30 +18,29 @@
         padding: 12px;
       }
    
-      .keyboards{
-        display: grid;
-        grid-template-columns: repeat(4, 80px);
-        grid-template-rows: repeat(4, 80px);
-        gap: 10px;
-        padding: 10px;
+      
+      .complete {
+        
+        
       }
-      .key {
-        background-color: rgba(255, 255, 255, 0.08);
-        font-size: 24px;
-        border-radius: 50%;
-      }
-      .complete > input {
-        background-color: rgba(255, 255, 255, 0.08);
-        font-size: 20px;
+      form {
+        background-color: rgb(27, 27, 27);
         width: 100%;
-        border: 1px solid rgb(41, 41, 41);
-        padding:  20px;
-        border-radius: 400px;
+        border: 1px solid rgb(46, 45, 45);
+        padding:  12px 16px;
+        border-radius: 12px;
+      }
+      form input, form .syntax {
+        font-size: 20px;
         font-family: MonoLisa,Spline Sans Mono,monospace;
       }
-      .complete {
-        background-color: rgb(27, 5, 0);
-        border-radius: 40px;
+      form input {
+        position: absolute;
+        color: transparent;
+        caret-color: rgb(179, 179, 179);
+      }
+      form .syntax {
+        
       }
       .result {
         padding: 20px;
@@ -46,43 +49,137 @@
         font-size: 20px;
       }
       .error {
-        border: 1px solid red !important;
+        border: 1px solid rgb(180, 51, 51) !important;
+      }
+      .syntax .text {
+        color: #E5C07B;
+      }
+      .syntax .number {
+        color: #D19A66;
+      }
+      .syntax .text:has(+.braces) {
+        color: #61AFEF;
+        font-weight: bold;
+      }
+      .syntax .braces {
+        color: 	#D55FDE;
+      }
+      .syntax .sign {
+        color: 	#D55FDE;
+      }
+      .syntax .operator {
+        color: 	#2BBAC5;
+      }
+      .syntax .other {
+        color: 	#7c7c7c;
+      }
+      .tabs {
+        display: flex;
+        gap: 12px;
+        padding-bottom: 12px;
+        overflow-x: scroll;
+        
+      }
+      .tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .tab {
+        border: 1px solid rgb(56, 56, 56);
+        padding: 8px ;
+        border-radius: 12px;
+        background-color: rgb(36, 36, 36);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
       }
     </style>
   </head>
   <body>
     <div id="root">
+      <div class="tabs">
+        <div class="tab">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"/></svg>
+          Ayer
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
+        </div>
+        <div class="tab">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"/></svg>
+          Martes
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
+        </div>
+        <div class="tab">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m-7-7h14"/></svg>
+        </div>
+      </div>
       <div class="complete">
-        <input type="text">
+        <form>
+          <input type="text" placeholder="Write">
+          <div class="syntax">&nbsp;</div>
+        </form>
         <div class="result"></div>
       </div>
-      <div class="keyboards">
-        <!-- <button class="key">1</button>
-        <button class="key">2</button>
-        <button class="key">3</button>
-        <button class="key">4</button>
-        <button class="key">5</button>
-        <button class="key">6</button>
-        <button class="key">7</button>
-        <button class="key">8</button>
-        <button class="key">9</button>
-        <button class="key">0</button>
-        <button class="key"></button>
-        <button class="key"></button>
-        <button class="key"></button> -->
-      </div>
+      
     </div>
-    <script>
+    <template id="tab">
+      <div class="tab">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"/></svg>
+        History
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
+      </div>
+    </template>
+    <script type="module">
+      import { tmpl } from '../lib/script/doc.js'
+
       const slider = document.querySelector(".slider");
       const input = document.querySelector("input");
       const outResult = document.querySelector(".result");
+      const tabs = document.querySelector(".tabs");
+      const form = document.querySelector("form");
+      const syntax = document.querySelector(".syntax");
+      const history = JSON.parse(localStorage.getItem('his') ?? '[]')
+      console.log(history)
+      for (let i = 0; i < history.length; i++) {
+        tabs.append(tmpl('tab'))
+        
+      }
+      input.addEventListener('input', ({target}) => {
+        let value = target.value.trim()
 
-      input.addEventListener('keyup', ({target}) => {
+        const resultHTML = value.replaceAll(/[A-Za-z]+|[0-9]+|[\+\-()]|./g,(w)=>{
+          if (/[A-Za-z]/.test(w)) {
+            return `<span class="text">${w}</span>`
+          } 
+          if (/[0-9]/.test(w)) {
+            return `<span class="number">${w}</span>`
+            
+          }
+          if (/[+-/*%]/.test(w)) {
+            return `<span class="operator">${w}</span>`
+            
+          }
+          if(/\(|\)/.test(w)) return `<span class="braces">${w}</span>`
+          if(/\(|\)/.test(w)) return `<span class="sign">${w}</span>`
+          return `<span class="other">${w}</span>`
+        })
+        console.log(resultHTML)
+
+        if (value.length>0) {
+          
+          syntax.innerHTML = resultHTML
+        }else {
+          syntax.innerHTML = '&nbsp;'
+
+        }
+        
         try {
           const output = eval(`
           const sqrt = x => Math.sqrt(x);
+          const sen = x => Math.sen(x*180);
+          const {PI,cos,tan,acos,abs} = Math
+
           ${target.value}`)
-          input.classList.remove('error')
+          form.classList.remove('error')
           
           console.log(typeof output)
           if (typeof output == 'string' || typeof output == 'number') {
@@ -93,7 +190,7 @@
           }
 
         } catch (error) {
-          input.classList.add('error')
+          form.classList.add('error')
         }
       })
       
