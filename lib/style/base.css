@@ -2,17 +2,21 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  border-width: 0;
-  outline-width: 0;
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
   background-color: transparent;
 }
+
 :root {
   
 }
 
-svg {
+svg, img {
   display: block;
 }
+
 span {
   font-family: inherit;
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="../lib/script/head.js"></script>
+  <title>Extract Colors Text</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+    section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 8px;
+      gap: 8px;
+    }
+    textarea, .syntax {
+      font-family: MonoLisa, monospace;
+      font-size: 14px;
+    }
+    textarea {
+      padding: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.185);
+    }
+    textarea:focus {
+      border: 1px solid rgb(0, 60, 88);
+
+    }
+    .syntax {
+      overflow-x: scroll;
+      background-color: rgba(255, 255, 255, 0.137);
+      padding: 8px;
+      width: 100%;
+    }
+    .coi {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    .color {
+      width: 14px;
+      height: 14px;
+      background-color: var(--color);
+    }
+    .colors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <textarea name="" id="" placeholder="Write"></textarea>
+    <div class="coi">
+      <div class="colors"></div>
+      <pre class="syntax"></pre>
+    </div>
+  </section>
+  <script>
+    const textarea = document.querySelector("textarea");
+    const $colors = document.querySelector(".colors");
+    const syntax = document.querySelector(".syntax");
+
+    let colors = []
+
+    textarea.addEventListener('input',({target})=> {
+      colors = []
+      syntax.innerHTML = target.value.replaceAll(/#[a-f0-9]{6}/g, (all, g1, index)=>{
+        colors.push(all)
+        return `<span style="color: ${all}; font-weight: bold">●${all}</span>`
+      })
+      colors = [...new Set(colors)]
+      $colors.innerHTML = colors.map((c)=>`<div class="color" style="--color: ${c}"></div>`).join('')
+    })
+
+  </script>
+</body>
+</html>
