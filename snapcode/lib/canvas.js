@@ -12,6 +12,15 @@ export class Draw {
   setFont(size, family, weight = 'normal', style = 'normal') {
     this.ctx.font = `${weight} ${style} ${size}px ${family}`;
   }
+  fillText(text, x, y) {
+    this.ctx.fillText(text, x, y)
+    return this.ctx.measureText(text).width
+  }
+  roundRect(x,y,w,h,r) {
+    this.ctx.beginPath();
+    this.ctx.roundRect(x,y,w,h,r);
+    return this.ctx
+  }
   setShadow(color, blur, x, y) {
     this.ctx.shadowColor = color;
     this.ctx.shadowBlur = blur;
