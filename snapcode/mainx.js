@@ -1,7 +1,6 @@
 
 import { Draw } from "./lib/canvas.js";
-import { VSCodeSnapCode } from "./lib/SnapCode.js";
-import { fontFeatureSettings, images, months } from './lib/util.js'
+import {  fontFeatureSettings, images, months } from './lib/util.js'
 
 const snapCode = document.querySelector(".snap-code");
 const code = document.querySelector(".code");
@@ -9,46 +8,41 @@ const canvas = document.querySelector("canvas");
 
 // Inputs
 const app = {
-  cvW: document.querySelector(".canvas-width"),
-  cvH: document.querySelector(".canvas-height"),
-
   input: {
     title: document.getElementById("title"),
     by: document.getElementById("by"),
-    lang: document.getElementById("languaje"),
-    background: document.getElementById("background")
-  },
-  select: {
-    IconNetwork: document.getElementById("select-icon-network"),
-    FontFamily: document.querySelector("select")
-  },
-  checkbox: {
-    italic: document.querySelector(".italic"),
-    ligatures: document.getElementById('font-ligatures'),
-    fondo: document.getElementById('fondo')
-  },
-  button: {
-    remove: document.getElementById('btn-remove')
+    cvW: document.querySelector(".canvas-width"),
+    cvH: document.querySelector(".canvas-height"),
   }
 }
 
-app.input.background.value = localStorage.getItem('background') ?? ''
+const $lang = document.getElementById("languaje");
+const $background = document.getElementById("background");
+$background.value = localStorage.getItem('background') ?? ''
 
-app.select.IconNetwork.value = localStorage.getItem('iconNetwork') ?? 'instagram'
+// Selects
+const $selectIconNetwork = document.getElementById("select-icon-network");
+const $selectFontFamily = document.querySelector("select");
+$selectIconNetwork.value = localStorage.getItem('iconNetwork') ?? 'instagram'
+
+
+// CheckBoxs
+const $checkBoxItalic = document.querySelector(".italic");
+const $ligatures = document.getElementById('font-ligatures')
+const $fondo = document.getElementById('fondo')
 
 const ctx = canvas.getContext("2d");
-const drw = new Draw(canvas,ctx);
+const drw = new Draw(canvas,ctx)
+const btnRemove = document.getElementById('btn-remove')
 
-const snapcode = new VSCodeSnapCode(canvas, ctx)
-
-app.input.lang.value = localStorage.getItem('languaje') ?? "txt"
-app.input.lang.addEventListener('input', (e)=>{
+$lang.value = localStorage.getItem('languaje') ?? "txt"
+$lang.addEventListener('input', (e)=>{
   languaje = e.target.value
   localStorage.setItem('languaje',languaje)
   draw()
-});
+})
 
-app.checkbox.fondo.addEventListener('change', draw)
+$fondo.addEventListener('change', draw)
 
 const codeSpace = {
   linesInPlainText: [],
@@ -73,10 +67,10 @@ let fontSize = 42
 let lineHeight = 1.4 * fontSize
 let fondo = true;
 
-app.checkbox.ligatures.checked =  Boolean(Number(localStorage.getItem('font-ligatures') ?? '1'))
-canvas.style.fontFeatureSettings = app.checkbox.ligatures.checked ? config.fontFeatureSettings : "normal";
+$ligatures.checked =  Boolean(Number(localStorage.getItem('font-ligatures') ?? '1'))
+canvas.style.fontFeatureSettings = $ligatures.checked ? config.fontFeatureSettings : "normal";
 
-app.checkbox.ligatures.addEventListener('click', () => {
+$ligatures.addEventListener('click', () => {
   canvas.style.fontFeatureSettings = $ligatures.checked ? config.fontFeatureSettings : "normal";
   localStorage.setItem('font-ligatures', Number($ligatures.checked))
   draw()
@@ -84,10 +78,10 @@ app.checkbox.ligatures.addEventListener('click', () => {
 
 let padding = 30;
 let fontFamily = localStorage.getItem('fontFamily') ?? "Cascadia Code";
-app.select.FontFamily.value = fontFamily
+$selectFontFamily.value = fontFamily
 updateFontFeatureSettings()
 let paddingLineNumbers = 65
-let languaje = app.input.lang.value
+let languaje = $lang.value
 
 function loadStructCodeSpace() {
   try {
@@ -163,7 +157,7 @@ function draw() {
   
   drw.setFont(fontSize, fontFamily)
   // return
-  if (app.checkbox.fondo.checked) {
+  if ($fondo.checked) {
     ctx.drawImage(
       images.background, 
       0,
@@ -306,7 +300,7 @@ function draw() {
 
       
  
-      if (app.checkbox.italic.checked) {
+      if ($checkBoxItalic.checked) {
         
         drw.setFont(fontSize,fontFamily, fontWeight, fontStyle);
       } else {
@@ -378,7 +372,7 @@ function updateFontFeatureSettings() {
 
 
 
-app.select.FontFamily.addEventListener('change', (e) => {
+$selectFontFamily.addEventListener('change', (e) => {
   localStorage.setItem('fontFamily', e.target.value)
   fontFamily = e.target.value
   updateFontFeatureSettings()
@@ -395,7 +389,7 @@ app.input.by.addEventListener('input', (e)=>{
   localStorage.setItem('by',by)
   draw()
 });
-app.input.background.addEventListener('keyup', (e)=>{
+$background.addEventListener('keyup', (e)=>{
   if(e.key === 'Enter'){ 
     localStorage.setItem('background', e.target.value)
     images.background.src = e.target.value
@@ -403,15 +397,15 @@ app.input.background.addEventListener('keyup', (e)=>{
   }
 });
 
-app.select.IconNetwork.addEventListener('change', (e)=>{
+$selectIconNetwork.addEventListener('change', (e)=>{
   images.iconNetwork.src = `icon/${e.target.value}.svg`
   localStorage.setItem('iconNetwork', e.target.value )
   images.iconNetwork.onload = () => draw();
 });
 
-app.checkbox.italic.addEventListener('click', draw)
+$checkBoxItalic.addEventListener('click', draw)
 
-app.button.remove.addEventListener('click', () => {
+btnRemove.addEventListener('click', () => {
   localStorage.removeItem('html')
   draw()
 })

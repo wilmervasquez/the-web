@@ -23,7 +23,7 @@ const $projects = document.createDocumentFragment()
 
 app.projects.innerHTML = projects.map(({name, url}) => {
   return `
-    <article class="proyect" style="rotate: ${Math.random()*20 - 10}deg">
+    <article class="proyect" style="rotate: ${Math.random() * 10 - 5}deg">
       <div class="fondo">
         <img src="" class="" id=""/>
       </div>
