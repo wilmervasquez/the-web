@@ -1,5 +1,16 @@
+import { Color } from "../../lib/script/color.js";
 import { Draw } from "./canvas.js";
 import { fontFeatureSettings, images } from "./util.js";
+
+class TokenText {
+  constructor(tc, fs, fw, c) {
+      this.textContent = tc
+      this.fontStyle = fs
+      this.fontWeight = fw
+      this.color = c
+  }
+}
+
 class SnapCode {
   constructor(canvas, ctx, app) {
     this.app = app;
@@ -11,9 +22,10 @@ class SnapCode {
     this.drw = new Draw(canvas, ctx);
 
     this.font = {
-      family: localStorage.getItem("fontFamily") ?? "Cascadia Code",
+      family: this.getLocal("font.family") ?? "Cascadia Code",
       size: 42,
     };
+
     this.setFontFeatureSettings(this.font.family);
     this.padding = 30;
     this.lineHeight = 1.4 * this.font.size;
@@ -21,29 +33,33 @@ class SnapCode {
 
     this.comment = {
       match: /\/\/ /,
-      replace: "↝ ",
+      replace: "» ",
       startsWith: "//",
     };
+
     this.paddingLineNumbers = 65;
 
     this.borderRadius = 30;
-    // this.fontFeatureSettings = fontFeatureSettings.CascadiaCode
 
     this.setXML(
-      localStorage.getItem("html") ??
-        `<div style="color: #abb2bf;background-color: #282c34;font-family: Cascadia Code, MonoLisa, Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span style="color: hsl(${
-          Math.random() * 360
+      this.getLocal("xml") ?? `<div style="color: #abb2bf;background-color: #282c34;font-family: Cascadia Code, MonoLisa, Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span style="color: hsl(${Math.random() * 360
         },100%,70%);font-style: italic;">Paste your code from VSCode</span></div></div>`
     );
     this.heightCode = this.rows.length * this.lineHeight;
   }
+  saveLocal(key, text) {
+    localStorage.setItem(`snapcode.${key}`, text)
+  }
+  getLocal(key, text) {
+    return localStorage.getItem(`snapcode.${key}`)
+  }
   setXML(xml) {
     this.xml.innerHTML = xml;
+    this.saveLocal('xml', xml)
 
-    this.bgColor = this.xml.firstChild.style.backgroundColor;
+    this.bgColor = this.xml.firstElementChild.style.backgroundColor;
 
-    this.isDark =
-      this.bgColor.match(/\d+/g).reduce((ac, v) => ac + Number(v), 0) / 3 < 127;
+    this.isDark = this.bgColor.match(/\d+/g)?.reduce((ac, v) => ac + Number(v), 0) / 3 < 127;
 
     let rows = [];
     let linesInPlainText = [];
@@ -54,30 +70,20 @@ class SnapCode {
       let line = [];
       linesInPlainText.push($line.innerText);
 
-      $line.childNodes.forEach(($token) => {
-        let $lineComputedStyle = $token.style;
-
-        if ($token.innerText.startsWith(this.comment.startsWith)) {
-          line.push({
-            textContent: this.comment.replace,
-            fontStyle: "normal",
-            fontWeight: $lineComputedStyle.fontWeight,
-            color: $lineComputedStyle.color,
-          });
-          line.push({
-            textContent: $token.innerText.replace(this.comment.match, ""),
-            fontStyle: "normal",
-            fontWeight: $lineComputedStyle.fontWeight,
-            color: $lineComputedStyle.color,
-          });
-        } else {
-          line.push({
-            textContent: $token.innerText,
-            fontStyle: $lineComputedStyle.fontStyle,
-            fontWeight: $lineComputedStyle.fontWeight,
-            color: $lineComputedStyle.color,
-          });
+      $line.childNodes.forEach(({ style, innerText, ...$token }) => {
+     
+        const { fontStyle, fontWeight, color } = style;
+        if (innerText.startsWith(this.comment.startsWith)) {
+          line.push(new TokenText(this.comment.replace, "normal", fontWeight, color))
+         
+          line.push(new TokenText(
+            innerText.replace(this.comment.match, ""),
+            'normal', fontWeight, color,
+          ));
+          return
         }
+        line.push(new TokenText(innerText, fontStyle, fontWeight, color ));
+
       });
       rows.push(line);
     }
@@ -87,7 +93,6 @@ class SnapCode {
   }
   setFontFeatureSettings(isLigatures) {
     if (isLigatures) {
-      console.log(this.font.family);
       switch (this.font.family) {
         case "mls":
           this.canvas.style.fontFeatureSettings = fontFeatureSettings.MonoLisa;
@@ -118,9 +123,13 @@ class VSCodeSnapCode extends SnapCode {
     this.ctx.fillRect(x ,y ,w ,h );
     this.ctx.fillStyle = borde;
     this.ctx.fillRect(x ,y ,6 ,h );
-    this.ctx.fillStyle = "hsla(135,100%,70%)";
+    this.ctx.fillStyle = Color.hsl(135, 100, 70);
   }
-
+  drawControls(x,y){
+    this.drw.circle(x, y, 16, "#F76452").fill();
+    this.drw.circle(x + 60, y, 16, "#fdbf2c").fill();
+    this.drw.circle(x + 120, y, 16, "#1ecf37").fill();
+  }
   render() {
     this.fileName = this.app.input.title.value;
     const widthOfLines = new Set();
@@ -138,6 +147,7 @@ class VSCodeSnapCode extends SnapCode {
 
     let wLH = this.ctx.measureText(String(this.rows.length)).width;
 
+    this.heightCode = this.rows.length * this.lineHeight
     // 🫧 Canvas Dimensitions
     this.canvas.width = (this.paddingLineNumbers * 2 + wLH) * 2 + maxWidthOfCodeSpace;
     this.canvas.width = this.canvas.width < 1600 ? 1600 : this.canvas.width;
@@ -145,7 +155,6 @@ class VSCodeSnapCode extends SnapCode {
 
     this.drw.setFont(this.font.size, this.font.family);
 
-    console.log(this.app);
     if (this.app.checkbox.fondo.checked) {
       this.ctx.drawImage(
         images.background,
@@ -155,7 +164,14 @@ class VSCodeSnapCode extends SnapCode {
         this.canvas.height
       );
     }
-
+    this.drw.roundRect(
+      this.padding,
+      this.padding, 
+      this.canvas.width - this.padding * 2,
+      this.canvas.height - this.padding * 2,
+      this.borderRadius
+    ).clip();
+    
     // Background
     this.ctx.fillStyle = this.bgColor;
     this.drw.roundRect(
@@ -173,11 +189,6 @@ class VSCodeSnapCode extends SnapCode {
 
     this.ctx.shadowBlur = 0;
 
-    // circle
-    // this.drw.circle(padding + 60, padding + 60, 16, "#F76452").fill();
-    // this.drw.circle(padding + 120, padding + 60, 16, "#fdbf2c").fill();
-    // this.drw.circle(padding + 180, padding + 60, 16, "#1ecf37").fill();
-
     const snap = {
       x: this.padding + this.paddingLineNumbers * 2 + wLH,
       y: this.padding + 120 + this.lineHeight,
@@ -185,21 +196,16 @@ class VSCodeSnapCode extends SnapCode {
 
     this.drw.setFont(42, "DM Sans");
     const d = this.ctx.measureText(this.fileName).width
+
+    // Spacio Superior
     this.ctx.fillStyle = "#00000033";
-    this.ctx.fillRect(snap.x + 80 + d, this.padding, 3000, 120);
+    this.ctx.fillRect(snap.x + 80 + d, this.padding, this.canvas.width-292-d, 120);
     // 🫧 Icon Folder
     let size = 50;
     this.ctx.filter = this.isDark ? "none" : "invert(100)";
     this.ctx.drawImage(
-      images.iconFolder,
+      images.iconFile,
       this.padding + 44,
-      this.padding + 60 - size / 2,
-      size,
-      size
-    );
-    this.ctx.drawImage(
-      images.iconFolder,
-      this.padding + 294 + d,
       this.padding + 60 - size / 2,
       size,
       size
@@ -221,13 +227,6 @@ class VSCodeSnapCode extends SnapCode {
     this.ctx.fillStyle = this.isDark ? `rgba(255,255,255,0.9)` : "#000000ff";
     this.ctx.fillText(this.fileName, this.padding + 130, this.padding + 60);
     this.ctx.fillStyle = this.isDark ? `rgba(255,255,255,0.5)` : "#000000ff";
-
-    const w = this.drw.fillText(
-      "time.ts",
-      this.padding + 370 + d,
-      this.padding + 60
-    );
-    console.log(w);
 
     this.ctx.lineWidth = 2;
     this.ctx.strokeStyle = "#ffffff22";
@@ -319,6 +318,7 @@ class VSCodeSnapCode extends SnapCode {
 
       if (Math.random() >= 0.5) {
         this.ctx.fillStyle = `hsla(${Math.random() * 360},100%,90%,0.1)`;
+        this.ctx.fillStyle = Color.hsla(Math.random() * 360,100,90,0.1);
         this.drw.rectRound(
             this.canvas.width - this.padding - 20,
             snap.y + i * this.lineHeight - 3,
@@ -363,6 +363,8 @@ class VSCodeSnapCode extends SnapCode {
         }
       );
     });
+
+  
 
     this.ctx.strokeStyle = "#ffffff22";
     this.drw.roundRect(

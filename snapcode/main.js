@@ -27,37 +27,32 @@ const app = {
   button: {
     remove: document.getElementById('btn-remove'),
     paste: document.querySelector(".btn-paste")
-
+    
   }
 }
 
-app.input.background.value = localStorage.getItem('background') ?? ''
+const snapVSCode = new VSCodeSnapCode(canvas, ctx, app);
 
-app.select.IconNetwork.value = localStorage.getItem('iconNetwork') ?? 'instagram'
-
-
-const snapVSCode = new VSCodeSnapCode(canvas, ctx, app)
-
-app.input.lang.value = localStorage.getItem('languaje') ?? "txt"
-app.input.lang.addEventListener('input', (e)=>{
-  languaje = e.target.value
-  localStorage.setItem('languaje',languaje)
-  snapVSCode.render()
-});
+app.input.background.value = snapVSCode.getLocal('background.url') ?? ''
+app.select.IconNetwork.value = snapVSCode.getLocal('icon.network') ?? 'instagram'
+app.input.title.value = snapVSCode.getLocal('fileName') ?? 'main.js'
+app.input.by.value = snapVSCode.getLocal('by') ?? ''
+app.input.lang.value = snapVSCode.getLocal('languaje') ?? "txt";
+app.select.FontFamily.value = snapVSCode.font.family
 
 app.checkbox.fondo.addEventListener('change', () => snapVSCode.render)
 
+app.input.lang.addEventListener('input', ({ target }) => {
+  snapVSCode.saveLocal('languaje', target.value)
+  snapVSCode.render()
+});
 
-let title = localStorage.getItem('title') ?? '';
-let by = localStorage.getItem('by') ?? "you"
 
 const config = {
   borderRadius: 30,
   fontFeatureSettings: fontFeatureSettings.CascadiaCode
 }
 
-app.input.title.value = title
-app.input.by.value = by
 
 app.checkbox.ligatures.checked =  Boolean(Number(localStorage.getItem('font-ligatures') ?? '1'))
 canvas.style.fontFeatureSettings = app.checkbox.ligatures.checked ? config.fontFeatureSettings : "normal";
@@ -67,9 +62,6 @@ app.checkbox.ligatures.addEventListener('click', ({target}) => {
   snapVSCode.render()
 })
 
-app.select.FontFamily.value = snapVSCode.font.family
-
-let languaje = app.input.lang.value
 
 app.button.paste.addEventListener("click", async () => {
   const clipboardItems = await navigator.clipboard.read();
@@ -86,42 +78,43 @@ app.button.paste.addEventListener("click", async () => {
 });
 
 app.select.FontFamily.addEventListener('change', ({ target }) => {
-  snapVSCode.font.family = target.value
-  snapVSCode.setFontFeatureSettings(app.checkbox.ligatures)
-  snapVSCode.render()
+  snapVSCode.font.family = target.value;
+  snapVSCode.setFontFeatureSettings(app.checkbox.ligatures);
+  snapVSCode.saveLocal('font.family', target.value)
+  snapVSCode.render();
 })
 
 window.addEventListener('load', () => snapVSCode.render())
 
 app.input.title.addEventListener('input', ({ target })=>{
+  snapVSCode.saveLocal('fileName', target.value)
   snapVSCode.render()
 })
 
-app.input.by.addEventListener('input', (e)=>{
-  by = e.target.value
-  localStorage.setItem('by',by)
+app.input.by.addEventListener('input', ({ target }) => {
+  snapVSCode.saveLocal('by', target.value)
   snapVSCode.render()
 });
 
-app.input.background.addEventListener('keyup', (e) => {
-  if(e.key === 'Enter'){ 
-    localStorage.setItem('background', e.target.value)
-    images.background.src = e.target.value
+app.input.background.addEventListener('keyup', ({ key, target }) => {
+  if(key === 'Enter'){ 
+    snapVSCode.saveLocal('background.url', target.value)
+    images.background.src = target.value
     images.background.onload = () => snapVSCode.render();
   }
 });
 
-app.select.IconNetwork.addEventListener('change', (e)=>{
-  images.iconNetwork.src = `icon/${e.target.value}.svg`
-  localStorage.setItem('iconNetwork', e.target.value )
+app.select.IconNetwork.addEventListener('change', ({ target })=>{
+  images.iconNetwork.src = `icon/${target.value}.svg`
+  snapVSCode.saveLocal('icon.network', target.value )
   images.iconNetwork.onload = () => snapVSCode.render();
 });
 
 app.checkbox.italic.addEventListener('click', () => snapVSCode.render())
 
 app.button.remove.addEventListener('click', () => {
-  localStorage.removeItem('html')
-  snapVSCode.render()
+  localStorage.removeItem('snapcode.xml')
+  snapVSCode.render() // [1111111]
 })
 
 app.checkbox.fondo.addEventListener('change', ({ target }) => {

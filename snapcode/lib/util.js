@@ -14,10 +14,10 @@ export const fontFeatureSettings = {
 
 export const images = {
   iconCube: img("icon/cube.svg"),
-  iconFolder: img("icon/folder.svg"),
+  iconFile: img("icon/file.svg"),
   iconPlay: img("icon/play.svg"),
   iconAlert: img('icon/alert.svg'),
   dismiss: img('icon/dismiss.svg'),
-  background: img(localStorage.getItem('background') ?? './img/background.png'),
+  background: img(localStorage.getItem('snapcode.background.url') ?? './img/background.png'),
   iconNetwork: img(`icon/${ localStorage.getItem('iconNetwork') ?? 'instagram'}.svg`)
 }
