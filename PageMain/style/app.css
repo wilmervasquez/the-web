@@ -1,40 +1,40 @@
 body{
-  width: 100vw;
-  height: 100vh;
-  background-image: url(https://cdn.dribbble.com/users/1338391/screenshots/15350883/media/8d6c00f289e36b37cae1d0269a4888b0.jpg?resize=700x525&vertical=center);
+	width: 100vw;
+	height: 100vh;
+	background-image: url(https://cdn.dribbble.com/users/1338391/screenshots/15350883/media/8d6c00f289e36b37cae1d0269a4888b0.jpg?resize=700x525&vertical=center);
 }
 .viewApps{
-  padding: 100px 10px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+	padding: 100px 10px;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
 }
 .card{
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px ;
-  background-color: rgba(255, 255, 255, 0.1);
-  gap: 10px;
-  border: 1px solid rgba(255, 255, 255, 0);
-  cursor: pointer;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px ;
+	background-color: rgba(255, 255, 255, 0.1);
+	gap: 10px;
+	border: 1px solid rgba(255, 255, 255, 0);
+	cursor: pointer;
 
 }
 .card:hover{
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.527);
-  border-radius: 10px;
+	background-color: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.527);
+	border-radius: 10px;
 }
 .card img{
-  width: 40px;
-  /* margin: 0 20px; */
+	width: 40px;
+	/* margin: 0 20px; */
 }
 .card p{
-  text-align: center;
-  padding: 0 10px;
-  font-weight: bold;
+	text-align: center;
+	padding: 0 10px;
+	font-weight: bold;
 font-size: 14px;
 display: none;
 color: rgb(0, 0, 0);

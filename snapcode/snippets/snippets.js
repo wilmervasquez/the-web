@@ -1,21 +1,21 @@
 // 1. Loading Data from an API
 fetch("http://api.com/users")
-  .then((response = response.json()))
-  .then((data) => console.log(data))
-  .catch((err) => console.log("Failed to Load data", err));
+	.then((response = response.json()))
+	.then((data) => console.log(data))
+	.catch((err) => console.log("Failed to Load data", err));
 
 // 2. User Authentication
 // Use CaseSimulate user login, resolving on success and rejecting on failure.
 function loginiser(email, password) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if ((email === "user@example.com") && (password === "password123")) {
-        resolve({ userId1, profile: "User Profile" });
-      } else {
-        reject(new Error("Authentication failed"));
-      }
-    }, 1000);
-  });
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			if ((email === "user@example.com") && (password === "password123")) {
+				resolve({ userId1, profile: "User Profile" });
+			} else {
+				reject(new Error("Authentication failed"));
+			}
+		}, 1000);
+	});
 }
 
 // Paste to code from VSCode
@@ -32,42 +32,42 @@ Array.map((m) => er); // ['mactyy', 'ert', '1233']
 const red = document.getElementById("red-circle");
 
 const redAnimation = red.animate(
-  [
-    { transform: "translateX(-6em)" },
-    { transform: "translateY(-6em)" },
-    { opacity: 0.4 },
-    { transform: "scale(1.5)" }
-  ],
-  {
-    duration1000,
-    iterationsInfinity,
-    direction: "alternate",
-    easing: "ease-in-out"
-  }
+	[
+		{ transform: "translateX(-6em)" },
+		{ transform: "translateY(-6em)" },
+		{ opacity: 0.4 },
+		{ transform: "scale(1.5)" }
+	],
+	{
+		duration1000,
+		iterationsInfinity,
+		direction: "alternate",
+		easing: "ease-in-out"
+	}
 );
 
 redAnimation.play();
 
 // ❌ No hagas esto, es muy costoso
 window.addEventListener('resize', () => {
-  if (window.innerWidth > 720) {
-    // to code
-  }
+	if (window.innerWidth > 720) {
+		// to code
+	}
 })
 
 // ✅ Usa la API de media queries
 const desktopMediaQuery = window.matchMedia('(min-width:720px)');
 
 desktopMediaQuery.addEventListener('change', (event) => {
-  if (event.matches) {
-    // to code
-  }
+	if (event.matches) {
+		// to code
+	}
 })
 
 async function getBatteryInfo() {
-  const battery = await navigator.getBattery();
-  console.log("Battery level" + battery.level)
-  console.log("Charging?" + battery.charging)
+	const battery = await navigator.getBattery();
+	console.log("Battery level" + battery.level)
+	console.log("Charging?" + battery.charging)
 }
 
 let str = "1 pavo cuesta 30€";
@@ -82,9 +82,9 @@ const fechaActual = moment().format('YYYY/MM/DD');
 
 const ubicaciones = ['Austin', 'New York', 'San Francisco'];
 ubicaciones.forEach((ubicacion) => {
-  hazUnaCosa();
-  hazMasCosas()
-  ejecuta(ubicacion);
+	hazUnaCosa();
+	hazMasCosas()
+	ejecuta(ubicacion);
 });
 
 
@@ -134,13 +134,13 @@ toSpliced()
 [3, 6, 9].toString() // '3,6,9'
 
 // JavaScript ES6 numbers
-Number.isInteger(7) // true 
+Number.isInteger(7) // true
 Number.isInteger(3.2) // false
 
-Number.isFinite (10 / 1) // true 
+Number.isFinite (10 / 1) // true
 Number.isFinite(10 / 0) // false
 
-Number.isNaN("javascript_coding") // true 
+Number.isNaN("javascript_coding") // true
 Number.isNaN(8) // false
 
 const r = /\d+/;
@@ -148,9 +148,8 @@ const r = /\d+/;
 const largoElemento = [ 'E 99', 'E 1001', 'E 5', 'E 30', 'E 465']
 
 const ordenado = largoElemento.sort((a, b) => {
-  return a.match(r) - b.match(r)
+	return a.match(r) - b.match(r)
 })
 
 console.log(ordenado)
 // ['E 5', 'E 30', 'E 99', 'E 465', 'E 1001'
-

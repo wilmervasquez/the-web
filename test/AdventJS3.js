@@ -1,21 +1,21 @@
 function findNaughtyStep(original, modified) {
-  if (original == modified) return "";
-  let max, min;
-  if (original.length > modified.length) {
-    max = original;
-    min = modified;
-  } else {
-    max = modified;
-    min = original;
-  }
-  let d = "";
-  for (const m of max) {
-    if (!min.includes(m)) {
-      d += m;
-    }
-  }
+	if (original == modified) return "";
+	let max, min;
+	if (original.length > modified.length) {
+		max = original;
+		min = modified;
+	} else {
+		max = modified;
+		min = original;
+	}
+	let d = "";
+	for (const m of max) {
+		if (!min.includes(m)) {
+			d += m;
+		}
+	}
 
-  return d;
+	return d;
 }
 
 console.log(findNaughtyStep("abcd", "abcde")); // 'e'
@@ -26,5 +26,5 @@ console.log(findNaughtyStep("abcde", "abcdg")); // ''
 // -----------------
 
 const analizer = (nm)=>{
-  
+
 }

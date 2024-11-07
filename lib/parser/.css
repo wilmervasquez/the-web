@@ -1,11 +1,10 @@
 App{
-  use(src: 12s)
+	use(src: 12s)
 } head: {
-  
-} body: {
-  Image.canva(src: "animales en la vida"; width: 200px)
-  Text{
-    # Todos somo mejores
-  }
-}
 
+} body: {
+	Image.canva(src: "animales en la vida"; width: 200px)
+	Text{
+		# Todos somo mejores
+	}
+}

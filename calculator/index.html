@@ -1,140 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="../lib/script/head.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
-    <script type="module" src="main.js"></script>
-    <title>Calculator</title>
-    <style>
-      * {
-        font-family: DM Sans;
-      }
-      :root {
-        color-scheme: light dark;
-      }
-      #root {
-        /* padding: 12px; */
-      }
-      
-      .complete {
-        
-        
-      }
-      form {
-        /* background-color: rgb(27, 27, 27); */
-        width: 100%;
-        /* border: 1px solid rgb(46, 45, 45); */
-        padding:  12px 16px;
-        /* border-radius: 12px; */
-      }
-      form input, form .syntax {
-        font-size: 20px;
-        font-family: MonoLisa,Spline Sans Mono,monospace;
-      }
-      form input {
-        position: absolute;
-        color: transparent;
-        caret-color: rgb(179, 179, 179);
-      }
-      form .syntax {
-        
-      }
-      .result {
-        padding: 20px;
-        font-family: MonoLisa,Spline Sans Mono, monospace;
-        color: rgb(29, 183, 255);
-        font-size: 20px;
-      }
-      .error {
-        border: 1px solid rgb(180, 51, 51) !important;
-        background-color: rgba(255, 0, 0, 0.288);
-      }
-      .syntax .text {
-        color: #E5C07B;
-      }
-      .syntax .number {
-        color: #D19A66;
-      }
-      .syntax .text:has(+.braces) {
-        color: #61AFEF;
-        font-weight: bold;
-      }
-      .syntax .braces {
-        color: 	#D55FDE;
-      }
-      .syntax .sign {
-        color: 	#D55FDE;
-      }
-      .syntax .operator {
-        color: 	#2BBAC5;
-      }
-      .syntax .other {
-        color: 	#7c7c7c;
-      }
-      .tabs {
-        display: flex;
-        /* gap: 12px; */
-        /* padding-bottom: 12px; */
-        overflow-x: scroll;
-        background-color: #252525;
-        
-      }
-      .tabs::-webkit-scrollbar {
-        display: none;
-      }
-      .tab {
-        padding: 8px ;
-        /* border-radius: 12px; */
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .tab.active {
-        background-color: #121212;
-        border: 0px solid rgb(56, 56, 56);
-        border-top: 2px solid greenyellow;
+	<head>
+		<script src="../lib/script/head.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+		<script type="module" src="main.js"></script>
+		<title>Calculator</title>
+		<style>
+			* {
+				font-family: DM Sans;
+			}
+			:root {
+				color-scheme: light dark;
+			}
+			#root {
+				/* padding: 12px; */
+			}
 
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root">
-      <div class="tabs">
-        <div class="tab active">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#999999" d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"/></svg>
-          Calculadora
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#999999" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
-        </div>
-        <div class="tab">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#999999" d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"/></svg>
-          Martes
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#999999" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
-        </div>
-        <div class="tab">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m-7-7h14"/></svg>
-        </div>
-      </div>
-      <div class="complete">
-        <form>
-          <input type="text" placeholder="Write">
-          <div class="syntax">&nbsp;</div>
-        </form>
-        <div class="result"></div>
-      </div>
-      
-    </div>
-    <canvas></canvas>
-    <template id="tab">
-      <div class="tab">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"/></svg>
-        History
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
-      </div>
-    </template>
-   
-  </body>
+			.complete {
+
+
+			}
+			form {
+				/* background-color: rgb(27, 27, 27); */
+				width: 100%;
+				/* border: 1px solid rgb(46, 45, 45); */
+				padding:  12px 16px;
+				/* border-radius: 12px; */
+			}
+			form input, form .syntax {
+				font-size: 20px;
+				font-family: MonoLisa,Spline Sans Mono,monospace;
+			}
+			form input {
+				position: absolute;
+				color: transparent;
+				caret-color: rgb(179, 179, 179);
+			}
+			form .syntax {
+
+			}
+			.result {
+				padding: 20px;
+				font-family: MonoLisa,Spline Sans Mono, monospace;
+				color: rgb(29, 183, 255);
+				font-size: 20px;
+			}
+			.error {
+				border: 1px solid rgb(180, 51, 51) !important;
+				background-color: rgba(255, 0, 0, 0.288);
+			}
+			.syntax .text {
+				color: #E5C07B;
+			}
+			.syntax .number {
+				color: #D19A66;
+			}
+			.syntax .text:has(+.braces) {
+				color: #61AFEF;
+				font-weight: bold;
+			}
+			.syntax .braces {
+				color: 	#D55FDE;
+			}
+			.syntax .sign {
+				color: 	#D55FDE;
+			}
+			.syntax .operator {
+				color: 	#2BBAC5;
+			}
+			.syntax .other {
+				color: 	#7c7c7c;
+			}
+			.tabs {
+				display: flex;
+				/* gap: 12px; */
+				/* padding-bottom: 12px; */
+				overflow-x: scroll;
+				background-color: #252525;
+
+			}
+			.tabs::-webkit-scrollbar {
+				display: none;
+			}
+			.tab {
+				padding: 8px ;
+				/* border-radius: 12px; */
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.tab.active {
+				background-color: #121212;
+				border: 0px solid rgb(56, 56, 56);
+				border-top: 2px solid greenyellow;
+
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root">
+			<div class="tabs">
+				<div class="tab active">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#999999" d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"/></svg>
+					Calculadora
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#999999" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
+				</div>
+				<div class="tab">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#999999" d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"/></svg>
+					Martes
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#999999" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
+				</div>
+				<div class="tab">
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m-7-7h14"/></svg>
+				</div>
+			</div>
+			<div class="complete">
+				<form>
+					<input type="text" placeholder="Write">
+					<div class="syntax">&nbsp;</div>
+				</form>
+				<div class="result"></div>
+			</div>
+
+		</div>
+		<canvas></canvas>
+		<template id="tab">
+			<div class="tab">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="M12 21q-3.45 0-6.012-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21m2.8-4.8L11 12.4V7h2v4.6l3.2 3.2z"/></svg>
+				History
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#999999" d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"/></svg>
+			</div>
+		</template>
+
+	</body>
 </html>

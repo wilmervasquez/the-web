@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="tone.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="tone.js"></script>
 </head>
 <body>
-  <button class="en">Encender</button>
-  <button class="miner">P...</button>
-  <script>
-    const btnEn = document.querySelector('.en');
-    const btn = document.querySelector('.miner');
-    let sampler;
-    btnEn.addEventListener('click',async()=>{
-      await Tone.start();
-      sampler = new Tone.Sampler({
-        urls: {
-          "C4": "C4.mp3",
-          "D#4": "Ds4.mp3",
-          "F#4": "Fs4.mp3",
-          "A4": "A4.mp3",
-        },
-        release: 1,
-        baseUrl: "https://tonejs.github.io/audio/salamander/",
-      }).toDestination();
-      Tone.loaded().then(() => {
-        btn.textContent="Play"
-      })
-    })
+	<button class="en">Encender</button>
+	<button class="miner">P...</button>
+	<script>
+		const btnEn = document.querySelector('.en');
+		const btn = document.querySelector('.miner');
+		let sampler;
+		btnEn.addEventListener('click',async()=>{
+			await Tone.start();
+			sampler = new Tone.Sampler({
+				urls: {
+					"C4": "C4.mp3",
+					"D#4": "Ds4.mp3",
+					"F#4": "Fs4.mp3",
+					"A4": "A4.mp3",
+				},
+				release: 1,
+				baseUrl: "https://tonejs.github.io/audio/salamander/",
+			}).toDestination();
+			Tone.loaded().then(() => {
+				btn.textContent="Play"
+			})
+		})
 
-    btn.addEventListener('click',async() => {
-      sampler.triggerAttackRelease(["C4"], 10);
-      setTimeout(()=>{
-        sampler.triggerAttackRelease(["D4"], 10);
-      },1000)
-      setTimeout(()=>{
-        sampler.triggerAttackRelease(["F4"], 10);
+		btn.addEventListener('click',async() => {
+			sampler.triggerAttackRelease(["C4"], 10);
+			setTimeout(()=>{
+				sampler.triggerAttackRelease(["D4"], 10);
+			},1000)
+			setTimeout(()=>{
+				sampler.triggerAttackRelease(["F4"], 10);
 
-      },2000)
-      setTimeout(()=>{
-        sampler.triggerAttackRelease(["A4"], 10);
+			},2000)
+			setTimeout(()=>{
+				sampler.triggerAttackRelease(["A4"], 10);
 
-      },3000)
-    })
-  </script>
+			},3000)
+		})
+	</script>
 </body>
 </html>

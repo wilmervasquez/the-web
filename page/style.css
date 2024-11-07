@@ -1,53 +1,53 @@
 :root {
-  color-scheme: light dark;
+	color-scheme: light dark;
 }
 #root {
-  margin: auto;
-  max-width: 800px;
+	margin: auto;
+	max-width: 800px;
 }
 h1 {
-  text-align: center;
-  color: greenyellow;
-  padding-top: 50px;
+	text-align: center;
+	color: greenyellow;
+	padding-top: 50px;
 }
 
 .proyects {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
-  gap: 12px;
-  solid: 12px;
-  padding: 12px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+	gap: 12px;
+	solid: 12px;
+	padding: 12px;
 }
 .proyect {
-  border: 1px solid hsl(0, 0%, 15%);
-  border-radius: 12px;
-  padding: 4px;
-  background: #1f1f1f;
+	border: 1px solid hsl(0, 0%, 15%);
+	border-radius: 12px;
+	padding: 4px;
+	background: #1f1f1f;
 
 }
 .proyect .name {
-  text-decoration: none;
-  color: greenyellow;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+	text-decoration: none;
+	color: greenyellow;
+	display: flex;
+	align-items: center;
+	gap: 8px;
 }
 .proyect .name:hover {
-  text-decoration: none;
-  color: #09ff00;
-  text-decoration: underline;
+	text-decoration: none;
+	color: #09ff00;
+	text-decoration: underline;
 }
 .proyect .foot {
-  padding: 8px;
+	padding: 8px;
 }
 .proyect .fondo {
-  width: 100%;
-  border-radius: 8px;
-  aspect-ratio: 3/2;
-  background-color: rgba(255, 255, 255, 0.137);
-  padding: 8px;
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHBhdGggZmlsbD0iIzk5OTk5OSIgZD0iTTAgOTZjMC0zNS4zIDI4LjctNjQgNjQtNjRoMzg0YzM1LjMgMCA2NCAyOC43IDY0IDY0djMyMGMwIDM1LjMtMjguNyA2NC02NCA2NEg2NGMtMzUuMyAwLTY0LTI4LjctNjQtNjR6bTMyMy44IDEwNi41Yy00LjUtNi42LTExLjktMTAuNS0xOS44LTEwLjVzLTE1LjQgMy45LTE5LjggMTAuNWwtODcgMTI3LjZsLTI2LjUtMzMuMWMtNC42LTUuNy0xMS41LTktMTguNy05cy0xNC4yIDMuMy0xOC43IDlsLTY0IDgwYy01LjggNy4yLTYuOSAxNy4xLTIuOSAyNS40Uzc4LjggNDE2IDg4IDQxNmgzMzZjOC45IDAgMTcuMS00LjkgMjEuMi0xMi44czMuNi0xNy40LTEuNC0yNC43ek0xMTIgMTkyYTQ4IDQ4IDAgMSAwIDAtOTZhNDggNDggMCAxIDAgMCA5NiIvPjwvc3ZnPg==);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 50px;
+	width: 100%;
+	border-radius: 8px;
+	aspect-ratio: 3/2;
+	background-color: rgba(255, 255, 255, 0.137);
+	padding: 8px;
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHBhdGggZmlsbD0iIzk5OTk5OSIgZD0iTTAgOTZjMC0zNS4zIDI4LjctNjQgNjQtNjRoMzg0YzM1LjMgMCA2NCAyOC43IDY0IDY0djMyMGMwIDM1LjMtMjguNyA2NC02NCA2NEg2NGMtMzUuMyAwLTY0LTI4LjctNjQtNjR6bTMyMy44IDEwNi41Yy00LjUtNi42LTExLjktMTAuNS0xOS44LTEwLjVzLTE1LjQgMy45LTE5LjggMTAuNWwtODcgMTI3LjZsLTI2LjUtMzMuMWMtNC42LTUuNy0xMS41LTktMTguNy05cy0xNC4yIDMuMy0xOC43IDlsLTY0IDgwYy01LjggNy4yLTYuOSAxNy4xLTIuOSAyNS40Uzc4LjggNDE2IDg4IDQxNmgzMzZjOC45IDAgMTcuMS00LjkgMjEuMi0xMi44czMuNi0xNy40LTEuNC0yNC43ek0xMTIgMTkyYTQ4IDQ4IDAgMSAwIDAtOTZhNDggNDggMCAxIDAgMCA5NiIvPjwvc3ZnPg==);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 50px;
 }

@@ -8,10 +8,10 @@ const Api = 21
 
 // function public
 func Hello (name string) string {
-    return hi(name)
+		return hi(name)
 }
 
 // function private
 func hi (name string) string {
-    return "hi " + name
+		return "hi " + name
 }

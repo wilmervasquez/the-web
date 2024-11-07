@@ -1,136 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    * {padding: 0; margin: 0; box-sizing: border-box; color-scheme: ligth dark
-    ;
-  font-family: Fira Code;font-size: 14px;outline: none;}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		* {padding: 0; margin: 0; box-sizing: border-box; color-scheme: ligth dark
+		;
+	font-family: Fira Code;font-size: 14px;outline: none;}
 
-    @keyframes blink {
-      0%,100% {
-        height: 100%;
-      }
-      50% {
-        height: 0%;
-      }
-  
-    }
-    .line-code {
-      position: relative;
-    }
-    .cursor::before {
-      content: "";
-      background-color: rgb(0, 153, 255);
-      height: 100%;
-      width: 2px;
-      animation: 1s blink infinite;
-      animation-delay: 1s;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .cursor::after{
-      content: attr(data-suggest);
-      color: rgb(112, 112, 112);
-    }
-    .app{
-      padding: 20px;
-    }
-    input {
-      font-family: DM Sans;
-      border: 1px solid rgb(68, 68, 68);
-      padding: 4px 8px;
-      border-radius: 8px;
-    }
-    input:focus {
-      border: 1px solid gray;
-    }
-  </style>
+		@keyframes blink {
+			0%,100% {
+				height: 100%;
+			}
+			50% {
+				height: 0%;
+			}
+
+		}
+		.line-code {
+			position: relative;
+		}
+		.cursor::before {
+			content: "";
+			background-color: rgb(0, 153, 255);
+			height: 100%;
+			width: 2px;
+			animation: 1s blink infinite;
+			animation-delay: 1s;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		.cursor::after{
+			content: attr(data-suggest);
+			color: rgb(112, 112, 112);
+		}
+		.app{
+			padding: 20px;
+		}
+		input {
+			font-family: DM Sans;
+			border: 1px solid rgb(68, 68, 68);
+			padding: 4px 8px;
+			border-radius: 8px;
+		}
+		input:focus {
+			border: 1px solid gray;
+		}
+	</style>
 </head>
 <body>
-  <div class="app">
-    <div class="editor">
-      
-      <div class="line">
-        <div class="line-code"><span class="token"><span class="cursor" data-suggest=""></span>Amigos que tal como esta</span></div>
-      </div>
-      <input type="text">
-    </div>
-  </div>
-  <script>
-    const cursor = document.querySelector('.cursor')
-    const suggest = ['map','log','mapCross','function','Hola Amigos', 'magos']
-    let ant;
-    document.onselectionchange = read
+	<div class="app">
+		<div class="editor">
 
-    window.addEventListener('keydown',(e)=>{
-   
- 
+			<div class="line">
+				<div class="line-code"><span class="token"><span class="cursor" data-suggest=""></span>Amigos que tal como esta</span></div>
+			</div>
+			<input type="text">
+		</div>
+	</div>
+	<script>
+		const cursor = document.querySelector('.cursor')
+		const suggest = ['map','log','mapCross','function','Hola Amigos', 'magos']
+		let ant;
+		document.onselectionchange = read
 
-      ant = cursor.previousSibling;
-      if(ant) {
-        ant.textContent += e.key.length > 1 ? '':e.key;
-      }
-      
-      console.dir(ant.textContent)
-      let word = ant.textContent.split(/\s+/).at(-1);
+		window.addEventListener('keydown',(e)=>{
 
-      let i = suggest.findIndex(w => w.startsWith(word));
-      if (i >= 0) {
-        cursor.dataset.suggest = suggest[i].slice(word.length)
-      }
 
-      
-      if (e.key == 'Backspace') {
-        ant.textContent = ant.textContent.slice(0,-1)
-      }
-      if (e.key == 'Tab') {
-        ant.textContent = 1
-      }
-      if (e.key == 'Enter') {
-        ant.textContent = 1
-      }
-    })
 
-    function read(){
-      let selection = document.getSelection();
-      console.log(selection)
-      // if (selection.isCollapsed) return
-      let range = new Range()
-      console.log(selection.anchorNode)
-      range.setStart(selection.anchorNode, selection.anchorOffset)
-      range.setEnd(selection.focusNode, selection.focusOffset)
+			ant = cursor.previousSibling;
+			if(ant) {
+				ant.textContent += e.key.length > 1 ? '':e.key;
+			}
 
-      range.insertNode(cursor)
-    }
-    class Editor {
-      constructor() {
-        this.container = document.querySelector('.editor')
-        this.content = [{line:[{text:''}]}]
+			console.dir(ant.textContent)
+			let word = ant.textContent.split(/\s+/).at(-1);
 
-        this.container.addEventListener('selectstart',(e)=>{
-          console.log(e)
-          read()
-        })
-        
-      }
-      
-      select(e1,start,e2,end) {
-        let range = new Range()
-        range.setStart(e1,start)
-        range.setEnd(e2,end)
+			let i = suggest.findIndex(w => w.startsWith(word));
+			if (i >= 0) {
+				cursor.dataset.suggest = suggest[i].slice(word.length)
+			}
 
-        document.getSelection().removeAllRanges()
-        // document.getSelection().addRange(range)mmm
-      }
-    }
 
-    const editor = new Editor()
-    // editor.select(0,3)
-  </script>
+			if (e.key == 'Backspace') {
+				ant.textContent = ant.textContent.slice(0,-1)
+			}
+			if (e.key == 'Tab') {
+				ant.textContent = 1
+			}
+			if (e.key == 'Enter') {
+				ant.textContent = 1
+			}
+		})
+
+		function read(){
+			let selection = document.getSelection();
+			console.log(selection)
+			// if (selection.isCollapsed) return
+			let range = new Range()
+			console.log(selection.anchorNode)
+			range.setStart(selection.anchorNode, selection.anchorOffset)
+			range.setEnd(selection.focusNode, selection.focusOffset)
+
+			range.insertNode(cursor)
+		}
+		class Editor {
+			constructor() {
+				this.container = document.querySelector('.editor')
+				this.content = [{line:[{text:''}]}]
+
+				this.container.addEventListener('selectstart',(e)=>{
+					console.log(e)
+					read()
+				})
+
+			}
+
+			select(e1,start,e2,end) {
+				let range = new Range()
+				range.setStart(e1,start)
+				range.setEnd(e2,end)
+
+				document.getSelection().removeAllRanges()
+				// document.getSelection().addRange(range)mmm
+			}
+		}
+
+		const editor = new Editor()
+		// editor.select(0,3)
+	</script>
 </body>
 </html>
-

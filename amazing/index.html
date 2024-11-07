@@ -1,99 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script type="module" src="../lib/script/head.js"></script>
-    <title>Document</title>
-    <style>
-      :root {
-        color-scheme: light dark;
-      }
-      img.item {
-        transition: 2s linear ;
-        display: block;
-        position: absolute;
-        width: 50vh;
-        left: 100%;
-        top: 50%;
-        transform: translate(0%,50%);
-      }
-      
-      img.active {
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%,-50%);
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
+	<head>
+		<script type="module" src="../lib/script/head.js"></script>
+		<title>Document</title>
+		<style>
+			:root {
+				color-scheme: light dark;
+			}
+			img.item {
+				transition: 2s linear ;
+				display: block;
+				position: absolute;
+				width: 50vh;
+				left: 100%;
+				top: 50%;
+				transform: translate(0%,50%);
+			}
 
-      }
+			img.active {
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%,-50%);
+				width: 100vw;
+				height: 100vh;
+				object-fit: cover;
 
-      .slider {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-      }
-     
-      .command {
-        display: flex;
-        gap: 10px;
-        position: fixed;
-        bottom: 20px;
+			}
 
-        left: 50%;
-        background-color: rgba(0, 0, 0, 0.445);
-        padding: 4px;
-        border-radius: 245px;
-        z-index: 99;
-        transform: translateX(-50%);
-      }
-      .command div {
-        padding: 4px;
-        border-radius: 20px;
-      }
-      .command div:hover {
-        background-color: rgba(0, 174, 255, 0.164);
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="root">
-      <div class="slider">
-        <img src="https://picsum.photos/600/300?lg=1" alt="" class="item active">
-        <img src="https://picsum.photos/600/300?lg=2" alt="" class="item">
-        <img src="https://picsum.photos/600/300?lg=3" alt="" class="item">
-      </div>
-      <div class="command">
-        <div class="prev">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 6l-6 6l6 6"/></svg>
-        </div>
-        <div class="next">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 6l6 6l-6 6"/></svg>
-        </div>
-      </div>
-    </div>
-    <script>
-      const slider = document.querySelector(".slider");
+			.slider {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+				overflow: hidden;
+			}
 
-      document.addEventListener("click", (e) => {
-        const items = document.querySelectorAll(".item");
-        console.log(e.target)
-        if(e.target.closest(".next")){
+			.command {
+				display: flex;
+				gap: 10px;
+				position: fixed;
+				bottom: 20px;
 
-          items[0].classList.remove('active')
-          items[1].classList.add('active')
-          setTimeout(()=>{
-            slider.append(items[0]);
-          },2000)
-        } else if (e.target.closest(".prev")) {
-          items[items.length - 1].classList.add('active')
-          items[0].classList.remove('active')
+				left: 50%;
+				background-color: rgba(0, 0, 0, 0.445);
+				padding: 4px;
+				border-radius: 245px;
+				z-index: 99;
+				transform: translateX(-50%);
+			}
+			.command div {
+				padding: 4px;
+				border-radius: 20px;
+			}
+			.command div:hover {
+				background-color: rgba(0, 174, 255, 0.164);
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="root">
+			<div class="slider">
+				<img src="https://picsum.photos/600/300?lg=1" alt="" class="item active">
+				<img src="https://picsum.photos/600/300?lg=2" alt="" class="item">
+				<img src="https://picsum.photos/600/300?lg=3" alt="" class="item">
+			</div>
+			<div class="command">
+				<div class="prev">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 6l-6 6l6 6"/></svg>
+				</div>
+				<div class="next">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 6l6 6l-6 6"/></svg>
+				</div>
+			</div>
+		</div>
+		<script>
+			const slider = document.querySelector(".slider");
 
-          slider.prepend(items[items.length -1]);
+			document.addEventListener("click", (e) => {
+				const items = document.querySelectorAll(".item");
+				console.log(e.target)
+				if(e.target.closest(".next")){
 
-        }
-      });
-    </script>
-  </body>
+					items[0].classList.remove('active')
+					items[1].classList.add('active')
+					setTimeout(()=>{
+						slider.append(items[0]);
+					},2000)
+				} else if (e.target.closest(".prev")) {
+					items[items.length - 1].classList.add('active')
+					items[0].classList.remove('active')
+
+					slider.prepend(items[items.length -1]);
+
+				}
+			});
+		</script>
+	</body>
 </html>

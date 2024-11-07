@@ -2,73 +2,73 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View SVG</title>
-  <style>
-    *{
-      margin: 0;
-      padding: 0;
-      box-sizing: content-box;
-    }
-    img{
-      display: block;
-      width: 100%;
-    }
-    .container-icons{
-      display: grid;
-      grid-template-columns: repeat(20,1fr);
-    }
-    svg{
-      display: block;
-      width: 100%;
-    }
-  </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>View SVG</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: content-box;
+		}
+		img{
+			display: block;
+			width: 100%;
+		}
+		.container-icons{
+			display: grid;
+			grid-template-columns: repeat(20,1fr);
+		}
+		svg{
+			display: block;
+			width: 100%;
+		}
+	</style>
 </head>
 
 <body>
-  <form action="">
-    <label for="">
+	<form action="">
+		<label for="">
 
-      <input type="file" id="dirSelect" webkitdirectory />
-    </label>
+			<input type="file" id="dirSelect" webkitdirectory />
+		</label>
 
-  </form>
-  <div class="container-icons"></div>
-  <!-- widget -->
-  <div id="widget-card">
-    <img src="" class="" id="" />
-  </div>
-  <script>
-    const inputFile = document.querySelector("#dirSelect");
-    const containerSvg = document.querySelector(".container-icons");
-    const widgetCard = document.getElementById('widget-card')
+	</form>
+	<div class="container-icons"></div>
+	<!-- widget -->
+	<div id="widget-card">
+		<img src="" class="" id="" />
+	</div>
+	<script>
+		const inputFile = document.querySelector("#dirSelect");
+		const containerSvg = document.querySelector(".container-icons");
+		const widgetCard = document.getElementById('widget-card')
 
-    // function readFile(file){
-    //   return new Promise
-    // }
+		// function readFile(file){
+		//   return new Promise
+		// }
 
-    inputFile.addEventListener('change', async (e) => {
-      const files = e.target.files
+		inputFile.addEventListener('change', async (e) => {
+			const files = e.target.files
 
-      for (const file of files) {
-        if(!/\.svg/.test(file.name)) continue;
-        const fileRead = new FileReader();
+			for (const file of files) {
+				if(!/\.svg/.test(file.name)) continue;
+				const fileRead = new FileReader();
 
-        fileRead.addEventListener('load', (e) => {
-          const svg = e.target.result
+				fileRead.addEventListener('load', (e) => {
+					const svg = e.target.result
 
-          const card = widgetCard.cloneNode(true);
-          card.setAttribute('title',file.name)
-          card.querySelector('img').src = svg
-          // card.innerHTML = svg
-          containerSvg.appendChild(card)
-        })
-        fileRead.readAsDataURL(file);
-      }
-      console.log(files)
-    })
-  </script>
+					const card = widgetCard.cloneNode(true);
+					card.setAttribute('title',file.name)
+					card.querySelector('img').src = svg
+					// card.innerHTML = svg
+					containerSvg.appendChild(card)
+				})
+				fileRead.readAsDataURL(file);
+			}
+			console.log(files)
+		})
+	</script>
 </body>
 
 </html>
