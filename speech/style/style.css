@@ -1,0 +1,26 @@
+:root {
+	/* color-scheme: light dark; */
+}
+
+body {
+	/* background-color: #171f2b; */
+}
+
+input {
+	display: block;
+	outline: none;
+	outline: none;
+}
+
+input[type=checkbox] {
+	accent-color: rgb(132, 0, 255);
+}
+.btns {
+	display: flex;
+	padding: 4px;
+	gap: 4px;
+}
+button {
+	border: 1px solid rgb(194, 194, 194);
+	padding: 4px 8px;
+}
